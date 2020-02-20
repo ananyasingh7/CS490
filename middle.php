@@ -6,8 +6,6 @@
 
     $v = $_POST['credentials'];
     //$v = '{ 
-    //    "name": "as2863", 
-    //   "password": "tim3fold"
     //}';
 
     //boolean to check if it spoofs to NJIT
