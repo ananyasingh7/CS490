@@ -5,12 +5,6 @@
 
 
     $v = $_POST['credentials'];
-    //$v = '{ 
-    //}';
-
-    //boolean to check if it spoofs to NJIT
-    $isNJIT = False; 
-
     $data = json_decode($v);
     //user, and not hashed password
     $user=$data->{'name'};
@@ -26,10 +20,10 @@
     $output = curl_exec($ch);
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     if($httpcode == 200){
-        $isNJIT = False;
+        $spoof_result = "success";
     }
     if($httpcode == 302){
-        $isNJIT = True;
+        $spoof_result = "failure";
     }
     curl_close($ch);
 
@@ -55,14 +49,6 @@
     else {
         //back's result is here, in $output
         $result = json_decode($output);
-        //@TODO: spoof NJIT here
-        if($isNJIT == False){
-            $spoof_result = "failure";
-        }
-
-        if($isNJIT == True){
-            $spoof_result="success";
-        }
         $result->{'njit'} = $spoof_result;
         echo json_encode($result);
     }
